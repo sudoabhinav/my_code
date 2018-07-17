@@ -1,24 +1,25 @@
-# -*- coding: utf-8 -*-
 """
-The given code provides a way to connect to mysql using python3.
+The given code provides a way to connect to mysql using python2.
 
-package used - pymysql
-command to install - pip3 install pymysql
+package used - MySQLdb
+command to install the package - pip install mysql-python
+
 """
 
-import pymysql
+import MySQLdb
 
-# conn = pymsql.connect("host", "username", "password", "db_name")
-conn = pymysql.connect("0.0.0.0", "username", "password", "db_name")
+conn = MySQLdb.connect(host="localhost", user="user", passwd="password",
+                       db="db_name")
 x = conn.cursor()
 
 ONE = 1
 first_name = 'Abhinav'
 last_name = 'Singh'
-addr = 'address'
+addr = 'addr'
 age = 18
 
 # SELECT QUERY
+
 sql = """SELECT * FROM `user_details` WHERE `first_name`='%s'""" % (first_name)
 x.execute(sql)
 li = list()
@@ -26,7 +27,7 @@ for i in x.fetchall():
     li.append(i)
 
 
-# another way to execute the sql query
+# another way to execute the sql query is as follows:-
 sql = """SELECT * FROM `user_details` WHERE `first_name`=%s"""
 x.execute(sql, [first_name])
 li = list()
@@ -45,6 +46,7 @@ x.execute(sql, [first_name, last_name, age, addr])
 conn.commit()
 
 # UPDATE QUERY
+
 sql = """UPDATE user_details SET age = '%s'
          WHERE first_name='%s'""" % (age, first_name)
 x.execute(sql)
